@@ -123,8 +123,12 @@ class Monitor(RestHelper):
                                                              host_port))
         host = host_port.split(':')[0]
         memcached_port = self.get_memcached_port(host_port)
+        logger.info('Found memcached port: {}'.format(memcached_port))
         while True:
             stats = memcached.get_stats(host, memcached_port, bucket, 'warmup')
+            for key in stats:
+                logger.info('Found key:value {}:{}'.format(stats.keys(key),
+                             stats.values(key)))
             state = stats['ep_warmup_state']
             if state == 'done':
                 return float(stats.get('ep_warmup_time', 0))

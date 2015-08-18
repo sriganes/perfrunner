@@ -263,9 +263,9 @@ class RemoteLinuxHelper(object):
     def restart(self):
         logger.info('Restarting server')
         environ = ' '.join('{}={}'.format(k, v) for (k, v) in self.env.items())
-        run(environ +
-            ' numactl --interleave=all /etc/init.d/couchbase-server restart',
-            pty=False)
+        # run(environ +
+        #    ' numactl --interleave=all /etc/init.d/couchbase-server restart',
+        #    pty=False)
 
     def restart_with_alternative_num_vbuckets(self, num_vbuckets):
         logger.info('Changing number of vbuckets to {}'.format(num_vbuckets))
@@ -374,7 +374,7 @@ class RemoteLinuxHelper(object):
     def tune_log_rotation(self):
         logger.info('Tune log rotation so that it happens less frequently')
         run('sed -i "s/num_files, [0-9]*/num_files, 50/" '
-            '/opt/couchbase/etc/couchbase/static_config')
+            '/root/couchbase/ns_server/build/instfiles/etc/couchbase/static_config')
 
     @all_hosts
     def start_cbq(self):

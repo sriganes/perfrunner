@@ -172,7 +172,9 @@ class ClusterManager(object):
 
     def tune_logging(self):
         self.remote.tune_log_rotation()
-        self.remote.restart()
+        logger.info('Restart the server. Sleep for 5 seconds');
+        time.sleep(5);
+        # self.remote.restart()
 
     def restart_with_alternative_num_cpus(self):
         num_cpus = self.test_config.cluster.num_cpus
@@ -193,9 +195,9 @@ class ClusterManager(object):
 
     def wait_until_warmed_up(self):
         target_iterator = TargetIterator(self.cluster_spec, self.test_config)
-        for target in target_iterator:
-            self.monitor.monitor_warmup(self.memcached, target.node,
-                                        target.bucket)
+        # for target in target_iterator:
+        #    self.monitor.monitor_warmup(self.memcached, target.node,
+        #                                target.bucket)
 
     def wait_until_healthy(self):
         for master in self.cluster_spec.yield_masters():
