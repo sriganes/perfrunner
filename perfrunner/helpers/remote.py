@@ -374,7 +374,7 @@ class RemoteLinuxHelper(object):
     def tune_log_rotation(self):
         logger.info('Tune log rotation so that it happens less frequently')
         run('sed -i "s/num_files, [0-9]*/num_files, 50/" '
-            '/opt/couchbase/etc/couchbase/static_config')
+            '/root/couchbase/ns_server/build/instfiles/etc/couchbase/static_config')
 
     @all_hosts
     def start_cbq(self):
